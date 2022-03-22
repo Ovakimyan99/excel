@@ -1,8 +1,8 @@
-import './test'
+import './test.js'
 import './scss/style.scss'
 
 console.log('hello')
-function start () {
+function start() {
   console.log('ggg')
 }
 
