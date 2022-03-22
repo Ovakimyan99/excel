@@ -1,3 +1,8 @@
+import { Excel } from '@/componetns/excel/Excel'
 import './scss/style.scss'
 
-console.log('hello')
+const excel = new Excel('#app', {
+  components: []
+})
+
+console.log(excel)

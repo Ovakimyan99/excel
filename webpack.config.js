@@ -10,20 +10,20 @@ const isDev = !isProd
 const filename = ext => isProd ? `build.[hash].${ext}` : `build.${ext}`
 
 const jsLoaders = () => {
-  const loaders = []
+  const loaders = [
+    {
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-env']
+      }
+    }
+  ]
 
   if (isDev) {
     loaders.push({
       loader: 'eslint-loader'
     })
   }
-
-  loaders.push({
-    loader: 'babel-loader',
-    options: {
-      presets: ['@babel/preset-env']
-    }
-  })
 
   return loaders
 }
