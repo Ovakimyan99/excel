@@ -1,5 +1,3 @@
-$red: blue;
-
-body {
-  background-color: $red;
-}
+@import './mixins';
+@import './variables';
+@import './index.scss';
