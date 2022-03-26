@@ -31,6 +31,37 @@ class Dom {
     return this
   }
 
+  closest(selector) {
+    return $(this.$el.closest(selector))
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect()
+  }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector)
+  }
+
+  /*
+  {
+    width: '',
+    height: '',
+    backgroundColor: ''
+  }
+  */
+  css(styles = {}) {
+    for (const key in styles) {
+      if (Object.prototype.hasOwnProperty.call(styles, key)) {
+        this.$el.style[key] = styles[key]
+      }
+    }
+  }
+
+  get data() {
+    return this.$el.dataset
+  }
+
   on(eventType, callback) {
     this.$el.addEventListener(eventType, callback)
   }
