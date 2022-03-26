@@ -43,23 +43,23 @@ class Dom {
     return this.$el.querySelectorAll(selector)
   }
 
-  /*
-  {
-    width: '',
-    height: '',
-    backgroundColor: ''
-  }
-  */
   css(styles = {}) {
     for (const key in styles) {
       if (Object.prototype.hasOwnProperty.call(styles, key)) {
         this.$el.style[key] = styles[key]
+        if (!styles[key] && styles[key] !== 0) {
+          delete this.$el.style[key]
+        }
       }
     }
   }
 
   get data() {
     return this.$el.dataset
+  }
+
+  get classList() {
+    return this.$el.classList
   }
 
   on(eventType, callback) {
