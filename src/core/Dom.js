@@ -43,6 +43,10 @@ class Dom {
     return this.$el.querySelectorAll(selector)
   }
 
+  find(selector) {
+    return $(this.$el.querySelector(selector))
+  }
+
   css(styles = {}) {
     for (const key in styles) {
       if (Object.prototype.hasOwnProperty.call(styles, key)) {
@@ -52,6 +56,14 @@ class Dom {
         }
       }
     }
+  }
+
+  addClass(className) {
+    this.$el.classList.add(className)
+  }
+
+  removeClass(className) {
+    this.$el.classList.remove(className)
   }
 
   get data() {
