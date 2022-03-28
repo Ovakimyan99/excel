@@ -1,9 +1,9 @@
 import { ExcelComponents } from '@core/ExcelComponents'
-import createTable from './table.template'
-import { resizeHandler } from './table.resize'
-import { cellSelection } from './table.cellSelection'
-import { TableSelection } from './TableSelection'
 import { shouldResize, isCell } from './table.functions'
+import { TableSelection } from './TableSelection'
+import createTable from './table.template'
+import { tableSelected } from './table.selected'
+import { resizeHandler } from './table.resize'
 
 export class Table extends ExcelComponents {
   static className = 'excel__table'
@@ -35,7 +35,7 @@ export class Table extends ExcelComponents {
     if (shouldResize(event)) {
       resizeHandler(this.$root, event)
     } else if (isCell(event)) {
-      cellSelection(this.selection, event)
+      tableSelected(this.selection, event)
     }
   }
 }

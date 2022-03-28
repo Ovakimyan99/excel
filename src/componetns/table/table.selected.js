@@ -1,6 +1,6 @@
 import { $ } from '@core/Dom'
 
-export function cellSelection(selection, event) {
+export function tableSelected(selection, event) {
   const $el = $(event.target)
   selection.select($el)
 }
