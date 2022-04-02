@@ -39,7 +39,6 @@ export function tableSelected($root, selection, event) {
     const activeCellsList = []
     activeCellsList.push(cellStart)
 
-    console.time('начало')
     // логика по выделению диапазона
     while (coordCell.col <= colEnd && coordCell.row <= rowEnd) {
       coordCell = cellStart.id(true)
@@ -66,7 +65,6 @@ export function tableSelected($root, selection, event) {
     }
 
     selection.selectGroup(activeCellsList)
-    console.timeEnd('начало')
   } else {
     const $el = $(event.target)
     selection.select($el)

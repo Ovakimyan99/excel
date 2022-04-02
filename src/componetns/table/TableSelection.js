@@ -9,7 +9,7 @@ export class TableSelection {
   // $el inctanseof DOM === true
   select($el) {
     this.clear()
-    $el.addClass(TableSelection.cellActiveClass)
+    $el.focus().addClass(TableSelection.cellActiveClass)
     this.group.push($el)
     this.current = $el
   }
