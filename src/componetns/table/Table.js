@@ -22,20 +22,19 @@ export class Table extends ExcelComponents {
   init() {
     super.init()
 
-    const $el = this.$root.find('[data-id="0:0"]')
-    console.log($el)
-    this.selection.select($el)
+    const $cell = this.$root.find('[data-id="0:0"]')
+    this.selection.select($cell)
   }
 
   toHTML() {
-    return createTable(20)
+    return createTable(800)
   }
 
   onMousedown(event) {
     if (shouldResize(event)) {
       resizeHandler(this.$root, event)
     } else if (isCell(event)) {
-      tableSelected(this.selection, event)
+      tableSelected(this.$root, this.selection, event)
     }
   }
 }

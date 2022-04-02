@@ -44,7 +44,8 @@ class Dom {
   }
 
   find(selector) {
-    return $(this.$el.querySelector(selector))
+    const $el = this.$el.querySelector(selector)
+    return $el ? $(this.$el.querySelector(selector)) : null
   }
 
   css(styles = {}) {
@@ -66,12 +67,32 @@ class Dom {
     this.$el.classList.remove(className)
   }
 
+  id(parse) {
+    if (parse) {
+      const parsed = this.id().split(':')
+      return {
+        row: +parsed[0],
+        col: +parsed[1]
+      }
+    }
+    return this.data.id
+  }
+
   get data() {
     return this.$el.dataset
   }
 
   get classList() {
     return this.$el.classList
+  }
+
+  get nextElementSibling() {
+    const $el = this.$el.nextElementSibling
+    return $el ? $($el) : null
+  }
+
+  get parentElement() {
+    return $(this.$el.parentElement)
   }
 
   on(eventType, callback) {
