@@ -1,6 +1,6 @@
 import { $ } from '@core/Dom'
 
-export function tableSelected($root, selection, event) {
+export function tableSelected($root, {selection, event}) {
   if (event.shiftKey) {
     const end = $(event.target)
     const start = selection.current

@@ -8,10 +8,11 @@ import { resizeHandler } from './table.resize'
 export class Table extends ExcelComponents {
   static className = 'excel__table'
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'Table',
-      listeners: ['mousedown', 'keydown']
+      listeners: ['mousedown', 'keydown'],
+      ...options
     })
   }
 
@@ -24,6 +25,10 @@ export class Table extends ExcelComponents {
 
     const $cell = this.$root.find('[data-id="0:0"]')
     this.selection.select($cell)
+
+    this.$on('formula:input', (text) => {
+      this.selection.current.text(text)
+    })
   }
 
   toHTML() {
@@ -35,7 +40,10 @@ export class Table extends ExcelComponents {
     if (shouldResize(event)) {
       resizeHandler(this.$root, event)
     } else if (isCell(event)) {
-      tableSelected(this.$root, this.selection, event)
+      tableSelected(this.$root, {
+        selection: this.selection,
+        event
+      })
     }
   }
 
