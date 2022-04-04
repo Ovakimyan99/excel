@@ -13,6 +13,14 @@ class Dom {
     return this.$el.outerHTML.trim()
   }
 
+  text(text) {
+    if (typeof text === 'string') {
+      this.$el.textContent = text
+      return this
+    }
+    return this.$el.textContent.trim()
+  }
+
   append(node) {
     if (node instanceof Dom) {
       node = node.$el
@@ -44,7 +52,8 @@ class Dom {
   }
 
   find(selector) {
-    return $(this.$el.querySelector(selector))
+    const $el = this.$el.querySelector(selector)
+    return $el ? $(this.$el.querySelector(selector)) : null
   }
 
   css(styles = {}) {
@@ -60,10 +69,28 @@ class Dom {
 
   addClass(className) {
     this.$el.classList.add(className)
+    return this
   }
 
   removeClass(className) {
     this.$el.classList.remove(className)
+    return this
+  }
+
+  id(parse) {
+    if (parse) {
+      const parsed = this.id().split(':')
+      return {
+        row: +parsed[0],
+        col: +parsed[1]
+      }
+    }
+    return this.data.id
+  }
+
+  focus() {
+    this.$el.focus()
+    return this
   }
 
   get data() {
@@ -72,6 +99,15 @@ class Dom {
 
   get classList() {
     return this.$el.classList
+  }
+
+  get nextElementSibling() {
+    const $el = this.$el.nextElementSibling
+    return $el ? $($el) : null
+  }
+
+  get parentElement() {
+    return $(this.$el.parentElement)
   }
 
   on(eventType, callback) {

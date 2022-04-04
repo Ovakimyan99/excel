@@ -3,13 +3,15 @@ export class TableSelection {
 
   constructor() {
     this.group = []
+    this.current = null
   }
 
   // $el inctanseof DOM === true
   select($el) {
     this.clear()
+    $el.focus().addClass(TableSelection.cellActiveClass)
     this.group.push($el)
-    $el.addClass(TableSelection.cellActiveClass)
+    this.current = $el
   }
 
   clear() {
@@ -19,5 +21,12 @@ export class TableSelection {
     this.group.length = 0
   }
 
-  selectGroup() {}
+  selectGroup(activeCellsList) {
+    this.clear()
+
+    this.group = [...activeCellsList]
+    for (const $el of this.group) {
+      $el.addClass(TableSelection.cellActiveClass)
+    }
+  }
 }
