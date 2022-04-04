@@ -20,7 +20,7 @@ function toCell(row) {
 function toColumn(col, index) {
   return `
     <div class="column" data-type="resizable" data-col="${index}">
-      ${col.trim()} ${index}
+      ${col.trim()}
       <div class="col-resize" data-resize="col"></div>
     </div>
   `

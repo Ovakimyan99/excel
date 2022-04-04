@@ -14,7 +14,11 @@ class Dom {
   }
 
   text(text) {
-    this.$el.textContent = text
+    if (typeof text === 'string') {
+      this.$el.textContent = text
+      return this
+    }
+    return this.$el.textContent.trim()
   }
 
   append(node) {
@@ -65,10 +69,12 @@ class Dom {
 
   addClass(className) {
     this.$el.classList.add(className)
+    return this
   }
 
   removeClass(className) {
     this.$el.classList.remove(className)
+    return this
   }
 
   id(parse) {

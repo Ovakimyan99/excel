@@ -1,3 +1,4 @@
+import { $ } from '@core/Dom'
 import { ExcelComponents } from '@core/ExcelComponents'
 import { shouldResize, isCell, nextSelector } from './table.functions'
 import { TableSelection } from './TableSelection'
@@ -11,7 +12,7 @@ export class Table extends ExcelComponents {
   constructor($root, options) {
     super($root, {
       name: 'Table',
-      listeners: ['mousedown', 'keydown'],
+      listeners: ['mousedown', 'keydown', 'input'],
       ...options
     })
   }
@@ -23,17 +24,26 @@ export class Table extends ExcelComponents {
   init() {
     super.init()
 
-    const $cell = this.$root.find('[data-id="0:0"]')
-    this.selection.select($cell)
+    this.selectCell(this.$root.find('[data-id="0:0"]'))
 
     this.$on('formula:input', (text) => {
       this.selection.current.text(text)
+    })
+
+    this.$on('formula:done', (event) => {
+      event.preventDefault()
+      this.selection.current.focus()
     })
   }
 
   toHTML() {
     this.tableRows = 200
     return createTable(this.tableRows)
+  }
+
+  selectCell($cell) {
+    this.selection.select($cell)
+    this.$emit('table:select', $cell)
   }
 
   onMousedown(event) {
@@ -63,7 +73,13 @@ export class Table extends ExcelComponents {
       event.preventDefault()
       const id = this.selection.current.id(true)
       const $next = this.$root.find(nextSelector(key, id))
-      this.selection.select($next)
+      this.selectCell($next)
+      return
     }
+    this.$emit('formula:input', $(event.target).text())
+  }
+
+  onInput(event) {
+    this.$emit('table:input', $(event.target))
   }
 }

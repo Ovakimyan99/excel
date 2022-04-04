@@ -17,9 +17,6 @@ export class Excel {
     this.components = this.components.map(Component => {
       const $el = $.create('div', Component.className)
       const component = new Component($el, ComponentOptions)
-      // if (component.name) {
-      //   window['cc' + component.name] = component
-      // }
       $el.html(component.toHTML())
       $root.append($el)
       return component
