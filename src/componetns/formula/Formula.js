@@ -26,9 +26,9 @@ export class Formula extends ExcelComponents {
       this.$formula.text($cell.text())
     })
 
-    this.$subscribe(store => {
-      console.log('Formula: ', store)
-    })
+    // this.$subscribe(store => {
+    //   console.log('Formula: ', store)
+    // })
   }
 
   toHTML() {

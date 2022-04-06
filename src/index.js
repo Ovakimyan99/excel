@@ -4,12 +4,14 @@ import { Toolbar } from '@/componetns/toolbar/Toolbar'
 import { Formula } from '@/componetns/formula/Formula'
 import { Table } from '@/componetns/table/Table'
 import { createStore } from '@core/createStore'
-import { rootReducer } from '@reducer/rootReducer'
+import { rootReducer } from '@redux/rootReducer'
+import { storage } from '@core/utils'
 import './scss/style.scss'
 
-const store = createStore(rootReducer, {
-  tableTitle: 'Tigrik',
-  colState: {}
+const store = createStore(rootReducer, storage('excel-store'))
+
+store.subscribe(store => {
+  storage('excel-store', store)
 })
 
 const excel = new Excel('#app', {

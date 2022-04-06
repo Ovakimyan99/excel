@@ -5,6 +5,7 @@ import { TableSelection } from './TableSelection'
 import createTable from './table.template'
 import { tableSelected } from './table.selected'
 import { resizeHandler } from './table.resize'
+import * as actions from '@redux/actions'
 
 export class Table extends ExcelComponents {
   static className = 'excel__table'
@@ -35,9 +36,9 @@ export class Table extends ExcelComponents {
       this.selection.current.focus()
     })
 
-    this.$subscribe(store => {
-      console.log('Table ', store)
-    })
+    // this.$subscribe(store => {
+    //   console.log('Table ', store)
+    // })
   }
 
   toHTML() {
@@ -52,7 +53,7 @@ export class Table extends ExcelComponents {
 
   async resizeTable(event) {
     const res = await resizeHandler(this.$root, event)
-    this.$dispatch({ type: 'RESIZE_HANDLER', data: res })
+    this.$dispatch(actions.tableResize(res))
   }
 
   onMousedown(event) {
