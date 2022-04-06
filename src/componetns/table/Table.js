@@ -16,6 +16,7 @@ export class Table extends ExcelComponents {
       listeners: ['mousedown', 'keydown', 'input'],
       ...options
     })
+    this.store = options.store
   }
 
   prepare() {
@@ -42,8 +43,7 @@ export class Table extends ExcelComponents {
   }
 
   toHTML() {
-    this.tableRows = 200
-    return createTable(this.tableRows)
+    return createTable(20, this.store.getState())
   }
 
   selectCell($cell) {
