@@ -34,6 +34,10 @@ export class Table extends ExcelComponents {
       event.preventDefault()
       this.selection.current.focus()
     })
+
+    this.$subscribe(store => {
+      console.log('Table ', store)
+    })
   }
 
   toHTML() {
@@ -46,9 +50,14 @@ export class Table extends ExcelComponents {
     this.$emit('table:select', $cell)
   }
 
+  async resizeTable(event) {
+    const res = await resizeHandler(this.$root, event)
+    this.$dispatch({ type: 'RESIZE_HANDLER', data: res })
+  }
+
   onMousedown(event) {
     if (shouldResize(event)) {
-      resizeHandler(this.$root, event)
+      this.resizeTable(event)
     } else if (isCell(event)) {
       tableSelected(this.$root, {
         selection: this.selection,
