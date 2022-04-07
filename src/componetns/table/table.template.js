@@ -16,6 +16,8 @@ function rowHeight(state, index) {
 
 function toCell(state, row) {
   return function(_, col) {
+    const id = `${row}:${col}`
+    const data = state.dataState[id]
     const width = colWidth(state.colState, col)
     return `
       <div
@@ -23,9 +25,9 @@ function toCell(state, row) {
         contenteditable
         data-col="${col}"
         data-type="cell"
-        data-id="${row}:${col}"
+        data-id="${id}"
         style="width: ${width};"
-      ></div>
+      >${data || ''}</div>
     `
   }
 }
