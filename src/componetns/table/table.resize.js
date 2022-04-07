@@ -7,6 +7,7 @@ export function resizeHandler($root, event) {
     const $parent = $resizer.closest('[data-type="resizable"]')
     const coords = $parent.getCoords()
     const type = $resizer.data.resize
+    let value
 
     $resizer.classList.add('active')
 
@@ -30,24 +31,23 @@ export function resizeHandler($root, event) {
       $resizer.css({right: 0})
 
       if (type === 'col') {
-        const widthValue = coords.width + deltaCol
-        $parent.css({width: widthValue + 'px'})
+        value = Math.floor(coords.width + deltaCol)
+        $parent.css({width: value + 'px'})
 
         $root.findAll(`[data-col="${$parent.data.col}"]`)
             .forEach(cell => {
-              $(cell).css({width: widthValue + 'px'})
+              $(cell).css({width: value + 'px'})
             })
-
-        if (widthValue) {
-          resolve({
-            value: widthValue,
-            id: $parent.data.col
-          })
-        }
       } else {
-        $parent.css({height: coords.height + deltaRow + 'px'})
+        value = Math.floor(coords.height + deltaRow)
+        $parent.css({height: value + 'px'})
         $resizer.css({bottom: 0})
       }
+      resolve({
+        value,
+        id: $parent.data[type],
+        type
+      })
     }
   })
 }

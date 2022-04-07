@@ -36,14 +36,10 @@ export class Table extends ExcelComponents {
       event.preventDefault()
       this.selection.current.focus()
     })
-
-    // this.$subscribe(store => {
-    //   console.log('Table ', store)
-    // })
   }
 
   toHTML() {
-    return createTable(20, this.store.getState())
+    return createTable(30, this.store.getState())
   }
 
   selectCell($cell) {

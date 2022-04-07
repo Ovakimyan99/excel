@@ -1,1 +1,1 @@
-export const TABLE_RESIZE = 'TABLE_RESIZEs'
+export const TABLE_RESIZE = 'TABLE_RESIZES'
