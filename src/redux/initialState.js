@@ -4,6 +4,7 @@ const defaultState = {
   rowState: {},
   colState: {},
   currentText: '',
+  dataState: {}
 }
 
 const storageState = storage('excel-store')
