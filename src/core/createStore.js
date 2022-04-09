@@ -16,7 +16,7 @@ export function createStore(rootReducer, initState = {}) {
       lisneters.forEach(lisneter => lisneter(state))
     },
     getState() {
-      return state
+      return JSON.parse(JSON.stringify(state))
     }
   }
 }

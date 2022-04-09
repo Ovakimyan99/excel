@@ -37,8 +37,6 @@ export class Table extends ExcelComponents {
       event.preventDefault()
       this.selection.current.focus()
     })
-
-    this.fillCellData()
   }
 
   toHTML() {

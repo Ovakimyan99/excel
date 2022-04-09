@@ -31,7 +31,6 @@ export class DomListener {
     // что за прослушиватель + у чего удалять
     this.listeners.forEach(listener => {
       const method = getEventMethod(listener)
-      console.log(this, this[method])
       this.$root.off(listener, this[method])
     })
   }

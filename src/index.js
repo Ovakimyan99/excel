@@ -11,8 +11,8 @@ import './scss/style.scss'
 
 const store = createStore(rootReducer, initialState)
 
-store.subscribe(store => {
-  storage('excel-store', store)
+store.subscribe(state => {
+  storage('excel-store', state)
 })
 
 const excel = new Excel('#app', {

@@ -1,5 +1,6 @@
 import {$} from '@core/Dom'
 import { Emitter } from '@/core/Emitter'
+import { StoreChanged } from '@core/StoreChanged'
 
 export class Excel {
   constructor(selector, options) {
@@ -7,6 +8,7 @@ export class Excel {
     this.components = options.components || []
     this.emitter = new Emitter()
     this.store = options.store
+    this.subscriber = new StoreChanged(this.store)
   }
 
   getRoot() {
@@ -29,10 +31,13 @@ export class Excel {
 
   render() {
     this.$el.append(this.getRoot())
+
+    this.subscriber.subscriberComponents(this.components)
     this.components.forEach(Component =>Component.init())
   }
 
   destroy() {
+    this.subscriber.subscriberComponents()
     this.components.forEach(Component =>Component.destroy())
   }
 }
