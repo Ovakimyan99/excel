@@ -5,6 +5,7 @@ import { TableSelection } from './TableSelection'
 import createTable from './table.template'
 import { tableSelected } from './table.selected'
 import { resizeHandler } from './table.resize'
+import { defaultStyles } from '@/constants'
 import * as actions from '@redux/actions'
 
 export class Table extends ExcelComponents {
@@ -37,6 +38,10 @@ export class Table extends ExcelComponents {
       event.preventDefault()
       this.selection.current.focus()
     })
+
+    this.$on('toolbar:applyStyle', style => {
+      this.selection.applyStyles(style)
+    })
   }
 
   toHTML() {
@@ -46,6 +51,8 @@ export class Table extends ExcelComponents {
   selectCell($cell) {
     this.selection.select($cell)
     this.$emit('table:select', $cell)
+
+    $cell.getStyles(Object.keys(defaultStyles))
   }
 
   async resizeTable(event) {
@@ -53,14 +60,22 @@ export class Table extends ExcelComponents {
     this.$dispatch(actions.tableResize(res))
   }
 
-  onMousedown(event) {
+  async onMousedown(event) {
     if (shouldResize(event)) {
       this.resizeTable(event)
     } else if (isCell(event)) {
-      tableSelected(this.$root, {
-        selection: this.selection,
-        event
-      })
+      try {
+        const selectCell = await tableSelected(this.$root, {
+          selection: this.selection,
+          event
+        })
+
+        if (selectCell) {
+          this.selectCell(selectCell)
+        }
+      } catch (error) {
+        console.warn(error)
+      }
     }
   }
 

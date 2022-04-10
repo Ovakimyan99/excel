@@ -17,7 +17,6 @@ function toButton(button) {
 }
 
 export function createToolbar(state) {
-  console.log(state)
   const buttons = [
     {
       icons: 'format_align_left',

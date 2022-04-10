@@ -66,8 +66,12 @@ export function tableSelected($root, {selection, event}) {
 
     selection.selectGroup(activeCellsList)
   } else {
-    const $el = $(event.target)
-    selection.select($el)
+    return new Promise(resolve => {
+      const $el = $(event.target)
+      selection.select($el)
+
+      return resolve($el)
+    })
   }
 }
 
