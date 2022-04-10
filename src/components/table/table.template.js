@@ -1,3 +1,6 @@
+import { defaultStyles } from '@/constants'
+import { camelToDachCase } from '@core/utils'
+
 const CODES = {
   A: 65,
   Z: 90
@@ -19,6 +22,10 @@ function toCell(state, row) {
     const id = `${row}:${col}`
     const data = state.dataState[id] || ''
     const width = colWidth(state.colState, col)
+    const style = Object.keys(defaultStyles)
+        .map(key => `${camelToDachCase(key)}: ${defaultStyles[key]}`)
+        .join(';')
+
     return `
       <div
         class="cell"
@@ -26,7 +33,7 @@ function toCell(state, row) {
         data-col="${col}"
         data-type="cell"
         data-id="${id}"
-        style="width: ${width};"
+        style="${style}; width: ${width};"
       >${data || ''}</div>
     `
   }
