@@ -1,8 +1,8 @@
-import { ExcelComponents } from '@core/ExcelComponents';
+import { ExcelComponentStore } from '@core/ExcelComponentStore';
 import { createToolbar } from '@/components/toolbar/toolbar.template';
 import { $ } from '@core/Dom'
 
-export class Toolbar extends ExcelComponents {
+export class Toolbar extends ExcelComponentStore {
   static className = 'excel__toolbar'
 
   constructor($root, options) {
@@ -13,14 +13,31 @@ export class Toolbar extends ExcelComponents {
     })
   }
 
+  prepare() {
+    const initState = {
+      textAlign: 'left',
+      fontWeight: 'normal',
+      textDecoration: 'none',
+      fontStyle: 'normal'
+    }
+
+    this.initState(initState)
+  }
+
+  get template() {
+    return createToolbar(this.state)
+  }
+
   toHTML() {
-    return createToolbar()
+    return this.template
   }
 
   onClick(event) {
     const $target = $(event.target)
     if ($target.data.type === 'button') {
-      console.log($target.data.style)
+      const style = JSON.parse($target.data.style)
+      const key = Object.keys(style)[0]
+      this.setState({[key]: style[key]})
     }
   }
 }

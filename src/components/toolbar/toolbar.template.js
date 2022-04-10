@@ -9,44 +9,49 @@ function toButton(button) {
       ${meta}
     >
       <i
-        class="material-icons"
+        class="material-icons-outlined"
         ${meta}
       >${button.icons}</i>
     </div>
   `
 }
 
-export function createToolbar() {
+export function createToolbar(state) {
+  console.log(state)
   const buttons = [
     {
       icons: 'format_align_left',
-      active: true,
+      active: state['textAlign'] === 'left',
       value: {textAlign: 'left'}
     },
     {
       icons: 'format_align_center',
-      active: false,
+      active: state['textAlign'] === 'center',
       value: {textAlign: 'center'}
     },
     {
       icons: 'format_align_right',
-      active: false,
+      active: state['textAlign'] === 'right',
       value: {textAlign: 'right'}
     },
     {
       icons: 'format_bold',
-      active: true,
-      value: {fontWeight: 'bold'}
+      active: state['fontWeight'] === 'bold',
+      value: {fontWeight: state['fontWeight'] === 'bold' ? 'normal' : 'bold'}
     },
     {
       icons: 'format_italic',
-      active: false,
-      value: {fontWeight: 'italic'}
+      active: state['fontStyle'] === 'italic',
+      value: {fontStyle: state['fontStyle'] === 'italic' ? 'normal' : 'italic'}
     },
     {
       icons: 'format_underlined',
-      active: false,
-      value: {textDecoration: 'underline'}
+      active: state['textDecoration'] === 'underline',
+      value: {
+        textDecoration: state['textDecoration'] === 'underline'
+        ? 'none'
+        : 'underline'
+      }
     }
   ]
   return buttons.map(toButton).join('')
