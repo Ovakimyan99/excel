@@ -15,6 +15,7 @@ export class Table extends ExcelComponents {
     super($root, {
       name: 'Table',
       listeners: ['mousedown', 'keydown', 'input'],
+      subscribe: ['stylesState'],
       ...options
     })
     this.store = options.store
@@ -39,8 +40,14 @@ export class Table extends ExcelComponents {
       this.selection.current.focus()
     })
 
-    this.$on('toolbar:applyStyle', style => {
+    this.$on('toolbar:applyStyle', (style) => {
       this.selection.applyStyles(style)
+      this.selection.group.forEach($cell => {
+        this.$dispatch(actions.applyStyle({
+          style,
+          id: $cell.data.id
+        }))
+      })
     })
   }
 
@@ -66,13 +73,15 @@ export class Table extends ExcelComponents {
       this.resizeTable(event)
     } else if (isCell(event)) {
       try {
-        const selectCell = await tableSelected(this.$root, {
+        const selectCells = await tableSelected(this.$root, {
           selection: this.selection,
           event
         })
 
-        if (selectCell) {
-          this.selectCell(selectCell)
+        if (!selectCells.length) {
+          this.selectCell(selectCells)
+        } else {
+          this.$dispatch(actions.changeStyles(defaultStyles))
         }
       } catch (error) {
         console.warn(error)
@@ -99,7 +108,9 @@ export class Table extends ExcelComponents {
       this.selectCell($next)
       return
     }
-    this.$emit('formula:input', $(event.target).text())
+    if (!event.shiftKey) {
+      this.$emit('formula:input', $(event.target).text())
+    }
   }
 
   updateTextInStore($cell) {
@@ -110,6 +121,8 @@ export class Table extends ExcelComponents {
   }
 
   onInput(event) {
-    this.updateTextInStore($(event.target))
+    if (!event.shiftKey) {
+      this.updateTextInStore($(event.target))
+    }
   }
 }

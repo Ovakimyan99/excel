@@ -13,10 +13,13 @@ export class Toolbar extends ExcelComponentStore {
       subscribe: ['currentStyles'],
       ...options
     })
+    this.store = options.store
   }
 
   prepare() {
     this.initState(defaultStyles)
+    const currentStyles = this.store.getState()['currentStyles']
+    this.storeChanged({ currentStyles })
   }
 
   get template() {

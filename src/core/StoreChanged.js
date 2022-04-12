@@ -9,7 +9,6 @@ export class StoreChanged {
 
   subscriberComponents(components) {
     this.prevState = this.store.getState()
-    console.log(this.prevState)
     this.sub = this.store.subscribe(state => {
       Object.keys(state).forEach(key => {
         if (!isEqual(this.prevState[key], state[key])) {

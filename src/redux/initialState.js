@@ -1,11 +1,13 @@
 import { storage } from '@core/utils'
+import { defaultStyles } from '@/constants'
 
 const defaultState = {
   rowState: {},
   colState: {},
   currentText: '',
   dataState: {},
-  currentStyles: {}
+  stylesState: {},
+  currentStyles: defaultStyles
 }
 
 const storageState = storage('excel-store')
