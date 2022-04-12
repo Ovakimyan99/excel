@@ -7,7 +7,8 @@ const defaultState = {
   currentText: '',
   dataState: {},
   stylesState: {},
-  currentStyles: defaultStyles
+  currentStyles: defaultStyles,
+  tableTitle: ''
 }
 
 const storageState = storage('excel-store')

@@ -2,7 +2,8 @@ import {
   TABLE_RESIZE,
   CHANGE_TEXT,
   CHANGE_STYLES,
-  APPLY_STYLE
+  APPLY_STYLE,
+  CHANGE_TABLE_TITLE
 } from '@redux/types'
 
 export function rootReducer(state, action) {
@@ -37,6 +38,12 @@ export function rootReducer(state, action) {
             ...action.data.style
           }
         }
+      }
+    case CHANGE_TABLE_TITLE:
+      field = 'tableTitle'
+      return {
+        ...state,
+        [field]: action.data
       }
     default: return state
   }

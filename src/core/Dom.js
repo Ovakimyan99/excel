@@ -15,10 +15,18 @@ class Dom {
 
   text(text) {
     if (typeof text === 'string') {
-      this.$el.textContent = text
+      if (this.$el.tagName.toLowerCase() === 'input') {
+        this.$el.value = text
+      } else {
+        this.$el.textContent = text
+      }
       return this
     }
-    return this.$el.textContent.trim()
+    if (this.$el.tagName.toLowerCase() === 'input') {
+      return this.$el.value.trim()
+    } else {
+      return this.$el.textContent.trim()
+    }
   }
 
   append(node) {
