@@ -14,19 +14,22 @@ class Dom {
   }
 
   text(text) {
-    if (typeof text === 'string') {
-      if (this.$el.tagName.toLowerCase() === 'input') {
-        this.$el.value = text
-      } else {
-        this.$el.textContent = text
-      }
+    if (typeof text !== 'undefined') {
+      this.$el.textContent = text
       return this
     }
     if (this.$el.tagName.toLowerCase() === 'input') {
       return this.$el.value.trim()
-    } else {
-      return this.$el.textContent.trim()
     }
+    return this.$el.textContent.trim()
+  }
+
+  attr(name, value) {
+    if (value) {
+      this.$el.setAttribute(name, value)
+      return this
+    }
+    return this.$el.getAttribute(name)
   }
 
   append(node) {

@@ -34,6 +34,7 @@ function toCell(state, row) {
         contenteditable
         data-col="${col}"
         data-type="cell"
+        data-value="${data}"
         data-id="${id}"
         style="${style}; width: ${width};"
       >${data || ''}</div>

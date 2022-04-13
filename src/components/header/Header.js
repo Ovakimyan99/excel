@@ -1,5 +1,6 @@
 import { createHeader } from '@/components/header/header.template.js'
 import { ExcelComponents } from '@core/ExcelComponents';
+import { debounce } from '@core/utils'
 import { $ } from '@core/Dom'
 import * as actions from '@redux/actions'
 
@@ -15,12 +16,8 @@ export class Header extends ExcelComponents {
     })
   }
 
-  init() {
-    super.init()
-
-    this.$on('header:title', title => {
-      this.$dispatch(actions.changeTableTitle(title))
-    })
+  prepare() {
+    this.onInput = debounce(this.onInput, 300)
   }
 
   toHTML() {
@@ -28,6 +25,6 @@ export class Header extends ExcelComponents {
   }
 
   onInput(event) {
-    this.$emit('header:title', $(event.target).text())
+    this.$dispatch(actions.changeTableTitle($(event.target).text()))
   }
 }

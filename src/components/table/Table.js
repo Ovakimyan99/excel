@@ -6,6 +6,7 @@ import createTable from './table.template'
 import { tableSelected } from './table.selected'
 import { resizeHandler } from './table.resize'
 import { defaultStyles } from '@/constants'
+import { parse } from '@core/parse'
 import * as actions from '@redux/actions'
 
 export class Table extends ExcelComponents {
@@ -30,9 +31,11 @@ export class Table extends ExcelComponents {
 
     this.selectCell(this.$root.find('[data-id="0:0"]'))
 
-    this.$on('formula:input', (text) => {
-      this.selection.current.text(text)
-      this.updateTextInStore(this.selection.current)
+    this.$on('formula:input', (value) => {
+      this.selection.current
+          .attr('data-value', value)
+          .text(parse(value))
+      this.updateTextInStore(value)
     })
 
     this.$on('formula:done', (event) => {
@@ -113,16 +116,16 @@ export class Table extends ExcelComponents {
     }
   }
 
-  updateTextInStore($cell) {
+  updateTextInStore(value) {
     this.$dispatch(actions.changeText({
       id: this.selection.current.id(),
-      value: $cell.text()
+      value
     }))
   }
 
   onInput(event) {
     if (!event.shiftKey) {
-      this.updateTextInStore($(event.target))
+      this.updateTextInStore($(event.target).data.value)
     }
   }
 }

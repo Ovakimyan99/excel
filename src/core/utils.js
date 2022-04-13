@@ -29,3 +29,17 @@ export function stylesToString(stylesObject) {
       .map(key => `${camelToDachCase(key)}: ${stylesObject[key]}`)
       .join(';')
 }
+
+export function debounce(fn, wait) {
+  let timeout
+  return function(...args) {
+    const later = () => {
+      clearInterval(timeout)
+      // eslint-disable-next-line no-invalid-this
+      fn.apply(this, ...args)
+    }
+
+    clearInterval(timeout)
+    timeout = setTimeout(later, wait)
+  }
+}

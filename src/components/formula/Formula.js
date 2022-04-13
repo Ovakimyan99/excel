@@ -20,7 +20,7 @@ export class Formula extends ExcelComponents {
     this.$emit('formula:input', this.$formula.text())
 
     this.$on('table:select', $cell => {
-      this.$formula.text($cell.text())
+      this.$formula.text($cell.data.value)
     })
   }
 
