@@ -24,8 +24,8 @@ class Dom {
     return this.$el.textContent.trim()
   }
 
-  attr(name, value) {
-    if (value) {
+  attr(name, value = null) {
+    if (typeof value === 'string') {
       this.$el.setAttribute(name, value)
       return this
     }
