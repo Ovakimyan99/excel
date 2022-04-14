@@ -3,8 +3,7 @@ import { Emitter } from '@/core/Emitter'
 import { StoreChanged } from '@core/StoreChanged'
 
 export class Excel {
-  constructor(selector, options) {
-    this.$el = $(selector)
+  constructor(options) {
     this.components = options.components || []
     this.emitter = new Emitter()
     this.store = options.store
@@ -24,14 +23,12 @@ export class Excel {
       $el.html(component.toHTML())
       $root.append($el)
       return component
-    });
+    })
 
     return $root
   }
 
-  render() {
-    this.$el.append(this.getRoot())
-
+  init() {
     this.subscriber.subscriberComponents(this.components)
     this.components.forEach(Component =>Component.init())
   }

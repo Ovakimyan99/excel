@@ -3,8 +3,6 @@ export class Emitter {
     this.listeners = {}
   }
 
-  // уведомляет - использование события
-  // emitter.subscribe('name-emit', ...args)
   emit(event, ...args) {
     if (!Array.isArray(this.listeners[event])) {
       return false
@@ -15,8 +13,6 @@ export class Emitter {
     return true
   }
 
-  // подписывает на события
-  // emitter.subscribe('name-emit', fn)
   subscribe(event, fn) {
     this.listeners[event] = this.listeners[event] || []
     this.listeners[event].push(fn)
