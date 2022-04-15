@@ -14,6 +14,7 @@ export class Header extends ExcelComponents {
       listeners: ['input'],
       ...options
     })
+    this.store = options.store
   }
 
   prepare() {
@@ -21,7 +22,7 @@ export class Header extends ExcelComponents {
   }
 
   toHTML() {
-    return createHeader()
+    return createHeader(this.store.getState())
   }
 
   onInput(event) {

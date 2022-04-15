@@ -33,7 +33,7 @@ export class Router {
     this.$placeholder.clear()
 
     const activeParam = ActiveRoute.param
-    let Page = this.routes[ActiveRoute.path]
+    let Page = this.routes[ActiveRoute.directory]
 
     if (!Page) {
       Page = this.routes.dashboard

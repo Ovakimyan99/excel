@@ -1,5 +1,5 @@
-import { storage } from '@core/utils'
 import { defaultStyles } from '@/constants'
+import { clone } from '@core/utils'
 
 const defaultState = {
   rowState: {},
@@ -11,6 +11,12 @@ const defaultState = {
   tableTitle: ''
 }
 
-const storageState = storage('excel-store')
+const normalize = (state) => ({
+  ...state,
+  currentStyles: defaultStyles,
+  currentText: ''
+})
 
-export const initialState = storageState ? storageState : defaultState
+export function normalizeInitState(state) {
+  return state ? normalize(state) : clone(defaultState)
+}

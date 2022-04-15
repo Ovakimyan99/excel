@@ -30,11 +30,11 @@ export class Excel {
 
   init() {
     this.subscriber.subscriberComponents(this.components)
-    this.components.forEach(Component =>Component.init())
+    this.components.forEach(Component => Component.init())
   }
 
   destroy() {
     this.subscriber.subscriberComponents()
-    this.components.forEach(Component =>Component.destroy())
+    this.components.forEach(Component => Component.destroy())
   }
 }

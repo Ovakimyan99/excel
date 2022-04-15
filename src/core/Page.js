@@ -1,6 +1,5 @@
 export class Page {
   constructor(params) {
-    console.log(params)
     this.params = params
   }
 

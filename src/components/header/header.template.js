@@ -1,4 +1,3 @@
-import { initialState } from '@redux/initialState'
 import { defaultTableTitle } from '@/constants'
 
 const buttons = ['delete', 'exit_to_app']
@@ -11,10 +10,10 @@ function createButtonTemplate(str) {
   `
 }
 
-export function createHeader() {
+export function createHeader({ tableTitle }) {
   return `
   <input type="text" class="input"
-    value="${initialState.tableTitle || defaultTableTitle}" />
+    value="${tableTitle || defaultTableTitle}" />
   
   <div>
     ${buttons.map(createButtonTemplate)}

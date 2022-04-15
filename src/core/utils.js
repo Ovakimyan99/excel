@@ -34,12 +34,19 @@ export function debounce(fn, wait) {
   let timeout
   return function(...args) {
     const later = () => {
-      clearInterval(timeout)
-      // eslint-disable-next-line no-invalid-this
-      fn.apply(this, ...args)
+      clearTimeout(timeout)
+      // eslint-disable-next-line
+      fn.apply(this, args)
     }
-
-    clearInterval(timeout)
+    clearTimeout(timeout)
     timeout = setTimeout(later, wait)
   }
+}
+
+export function clone(obj) {
+  return JSON.parse(JSON.stringify(obj))
+}
+
+export function createEcxelID() {
+  return Date.now().toString()
 }
