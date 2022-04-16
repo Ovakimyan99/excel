@@ -1,11 +1,18 @@
-import { defaultTableTitle } from '@/constants'
+const buttons = [
+  {
+    icon: 'delete',
+    action: 'delete'
+  },
+  {
+    icon: 'exit_to_app',
+    action: 'leave'
+  }
+]
 
-const buttons = ['delete', 'exit_to_app']
-
-function createButtonTemplate(str) {
+function createButtonTemplate({icon, action}) {
   return `
-    <div class="button">
-      <i class="material-icons">${str}</i>
+    <div class="button" data-header="${action}">
+      <i class="material-icons" data-header="${action}">${icon}</i>
     </div>
   `
 }
@@ -13,10 +20,10 @@ function createButtonTemplate(str) {
 export function createHeader({ tableTitle }) {
   return `
   <input type="text" class="input"
-    value="${tableTitle || defaultTableTitle}" />
+    value="${tableTitle}" />
   
   <div>
-    ${buttons.map(createButtonTemplate)}
+    ${buttons.map(createButtonTemplate).join('')}
   </div>
 `
 }

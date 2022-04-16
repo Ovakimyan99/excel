@@ -1,6 +1,8 @@
 import { createHeader } from '@/components/header/header.template.js'
 import { ExcelComponents } from '@core/ExcelComponents';
-import { debounce } from '@core/utils'
+import { debounce, clearStorage } from '@core/utils'
+import { ActiveRoute } from '@core/router/ActiveRoute';
+import { defaultTableTitle } from '@/constants'
 import { $ } from '@core/Dom'
 import * as actions from '@redux/actions'
 
@@ -11,7 +13,7 @@ export class Header extends ExcelComponents {
     super($root, {
       name: 'Header',
       subscribe: ['tableTitle'],
-      listeners: ['input'],
+      listeners: ['input', 'click'],
       ...options
     })
     this.store = options.store
@@ -26,6 +28,20 @@ export class Header extends ExcelComponents {
   }
 
   onInput(event) {
-    this.$dispatch(actions.changeTableTitle($(event.target).text()))
+    this.$dispatch(actions.changeTableTitle(
+        $(event.target).text() || defaultTableTitle
+    ))
+  }
+
+  onClick(event) {
+    const $el = $(event.target)
+    const action = $el.data.header
+
+    if (action === 'leave') {
+      ActiveRoute.navigate('')
+    } else if (action === 'delete') {
+      clearStorage('excel:' + ActiveRoute.param)
+      ActiveRoute.navigate('')
+    }
   }
 }

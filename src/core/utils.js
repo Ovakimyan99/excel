@@ -13,6 +13,14 @@ export function storage(key, data = null) {
   return localStorage.setItem(key, JSON.stringify(data))
 }
 
+export function clearStorage(key, all = false) {
+  if (all) {
+    localStorage.clear()
+    return
+  }
+  localStorage.removeItem(key)
+}
+
 export function isEqual(a, b) {
   if (typeof a === 'object' && typeof b === 'object') {
     return JSON.stringify(a) === JSON.stringify(b)

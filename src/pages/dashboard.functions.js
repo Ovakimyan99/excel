@@ -1,8 +1,25 @@
-function tableLinkToHTML() {
+import { storage } from '@core/utils'
+
+function getTime(str) {
+  return Number(str.split(':')[1])
+}
+
+function getDateCreateTable(time) {
+  const regular = /\//g
+  return new Date(time)
+      .toLocaleDateString(
+          'en-GB',
+          { month: 'numeric', day: 'numeric', year: 'numeric' }
+      ).replace(regular, '.')
+}
+
+function tableLinkToHTML(item, index) {
+  const time = getTime(item)
+  const title = storage(item)['tableTitle']
   return `
     <li class="db__record">
-      <a href="#">Таблица номер 1</a>
-      <strong>12.06.2020</strong>
+      <a href="#excel/${time}">${title}</a>
+      <strong>${getDateCreateTable(time)}</strong>
     </li>
   `
 }
@@ -32,7 +49,7 @@ export function createRecordTable() {
     </div>
 
     <ul class="db__list">
-      ${keys.map(tableLinkToHTML)}
+      ${keys.map(tableLinkToHTML).join('')}
     </ul>
   `
 }

@@ -27,7 +27,8 @@ export class ExcelPage extends Page {
 
     this.excel = new Excel({
       components: [Header, Toolbar, Formula, Table],
-      store
+      store,
+      params
     })
 
     return this.excel.getRoot()
