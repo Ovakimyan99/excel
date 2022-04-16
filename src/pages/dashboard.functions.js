@@ -1,25 +1,21 @@
 import { storage } from '@core/utils'
 
-function getTime(str) {
+function getID(str) {
   return Number(str.split(':')[1])
 }
 
 function getDateCreateTable(time) {
-  const regular = /\//g
-  return new Date(time)
-      .toLocaleDateString(
-          'en-GB',
-          { month: 'numeric', day: 'numeric', year: 'numeric' }
-      ).replace(regular, '.')
+  const date = new Date(time)
+  return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
 }
 
-function tableLinkToHTML(item, index) {
-  const time = getTime(item)
+function tableLinkToHTML(item) {
   const title = storage(item)['tableTitle']
+  const lastTimeOpened = storage(item)['openedDate']
   return `
     <li class="db__record">
-      <a href="#excel/${time}">${title}</a>
-      <strong>${getDateCreateTable(time)}</strong>
+      <a href="#excel/${getID(item)}">${title}</a>
+      <strong>${getDateCreateTable(lastTimeOpened)}</strong>
     </li>
   `
 }

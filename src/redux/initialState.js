@@ -1,3 +1,4 @@
+import { defaultTableTitle } from '@/constants'
 import { defaultStyles } from '@/constants'
 import { clone } from '@core/utils'
 
@@ -8,7 +9,8 @@ const defaultState = {
   dataState: {},
   stylesState: {},
   currentStyles: defaultStyles,
-  tableTitle: ''
+  tableTitle: defaultTableTitle,
+  openedDate: new Date().toJSON()
 }
 
 const normalize = (state) => ({

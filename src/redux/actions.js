@@ -3,7 +3,8 @@ import {
   CHANGE_TEXT,
   CHANGE_STYLES,
   APPLY_STYLE,
-  CHANGE_TABLE_TITLE
+  CHANGE_TABLE_TITLE,
+  UPDATE_DATE
 } from '@redux/types'
 
 export function tableResize(data) {
@@ -38,5 +39,12 @@ export function changeTableTitle(title) {
   return {
     type: CHANGE_TABLE_TITLE,
     data: title
+  }
+}
+
+export function updateDateOpenedTable() {
+  return {
+    type: UPDATE_DATE,
+    data: new Date().toJSON()
   }
 }
