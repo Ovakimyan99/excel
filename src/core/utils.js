@@ -58,3 +58,7 @@ export function clone(obj) {
 export function createEcxelID() {
   return Date.now().toString()
 }
+
+export function preventDefault(event) {
+  event.preventDefault()
+}
