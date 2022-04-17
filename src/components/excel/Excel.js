@@ -31,7 +31,6 @@ export class Excel {
   }
 
   init() {
-    console.log(process.env.NODE_ENV)
     if (process.env.NODE_ENV === 'production') {
       document.addEventListener('contextmenu', preventDefault)
     }
@@ -43,6 +42,6 @@ export class Excel {
   destroy() {
     this.subscriber.subscriberComponents()
     this.components.forEach(Component => Component.destroy())
-    document.removeEventListener('contextmenu')
+    document.removeEventListener('contextmenu', preventDefault)
   }
 }
