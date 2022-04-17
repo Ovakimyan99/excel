@@ -6,3 +6,4 @@ export const defaultStyles = {
 }
 
 export const defaultTableTitle = 'Название таблицы'
+export const HOST = 'http://localhost:8000'

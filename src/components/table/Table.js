@@ -112,7 +112,7 @@ export class Table extends ExcelComponents {
       return
     }
     if (!event.shiftKey) {
-      this.$emit('formula:input', $(event.target).text())
+      this.$emit('formula:input', $(event.target).data.value)
     }
   }
 
@@ -126,6 +126,7 @@ export class Table extends ExcelComponents {
   onInput(event) {
     if (!event.shiftKey) {
       this.updateTextInStore($(event.target).data.value)
+      this.$emit('formula:input', $(event.target).text())
     }
   }
 }
